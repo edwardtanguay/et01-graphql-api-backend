@@ -1,6 +1,5 @@
 import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
-import { buildSchema } from 'graphql';
 import cors from 'cors';
 import axios from 'axios';
 import { schema } from './schema.js';
@@ -9,8 +8,6 @@ const app = express();
 const PORT = 5547;
 
 app.use(cors());
-
-// const schema = buildSchema(mainSchema);
 
 const root = {
     hello: () => {
