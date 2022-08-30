@@ -8,22 +8,30 @@ const PORT = 5547;
 
 const schema = buildSchema(`
 	type Query {
-		hello: String
+		hello: String,
+		message: String,
+		books: [String]
 	}
 `);
 
 const root = {
 	hello: () => {
 		return 'hello world';
+	},
+	message: () => {
+		return 'the message';
+	},
+	books: () => {
+		return ['More About Linux', 'Bash Shell Scripting']
 	}
 };
 app.use(cors());
 
-app.all('/', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
-});
+// app.all('/', function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//     next();
+// });
 app.use(express.json());
 app.use(
     '/graphql',
