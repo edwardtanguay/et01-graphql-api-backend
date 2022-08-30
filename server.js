@@ -6,7 +6,6 @@ import cors from 'cors';
 const app = express();
 const PORT = 5547;
 
-
 const schema = buildSchema(`
 	type Query {
 		hello: String
@@ -18,7 +17,14 @@ const root = {
 		return 'hello world';
 	}
 };
+app.use(cors());
 
+app.all('/', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
+app.use(express.json());
 app.use(
     '/graphql',
 	graphqlHTTP({
@@ -27,9 +33,7 @@ app.use(
         graphiql: true
     })
 );
-app.use(cors({
-	origin: "*",
-}));
+
 
 app.get('/', (req, res) => {
 	res.send('graphql api');
