@@ -3,26 +3,14 @@ import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from 'graphql';
 import cors from 'cors';
 import axios from 'axios';
-import schema from './schmema.graphql';
+import { schema } from './schema.js';
 
 const app = express();
 const PORT = 5547;
 
 app.use(cors());
 
-const schema = buildSchema(`
-	type Query {
-		hello: String,
-		message: String,
-		books: [String],
-		employees: [Employee]
-	}
-
-	type Employee {
-		firstName: String,
-		lastName: String
-	}
-`);
+// const schema = buildSchema(mainSchema);
 
 const root = {
     hello: () => {
