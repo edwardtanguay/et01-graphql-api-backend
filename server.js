@@ -20,12 +20,12 @@ const root = {
 		return ['More About Linux', 'Bash Shell Scripting'];
 	},
 	employees: async () => {
-		const employees = [];
 		const rawEmployees = (
 			await axios.get(
 				'https://edwardtanguay.netlify.app/share/employees.json'
 			)
 		).data;
+		const employees = [];
 		rawEmployees.forEach((rawEmployee) => {
 			const employee = {
 				firstName: rawEmployee.firstName,
@@ -35,7 +35,7 @@ const root = {
 		});
 		return employees;
 	},
-	employees: () => {
+	slowEmployees: async () => {
 		const employees = [];
 		setTimeout(async () => {
 			const rawEmployees = (
