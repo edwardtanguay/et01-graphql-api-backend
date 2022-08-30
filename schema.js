@@ -6,6 +6,7 @@ export const schema = buildSchema(`
 		message: String
 		books: [String]
 		employees: [Employee]
+		slowEmployees: [Employee]
 	}
 
 	type Employee {
