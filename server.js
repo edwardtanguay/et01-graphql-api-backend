@@ -9,6 +9,10 @@ const PORT = 5547;
 
 app.use(cors());
 
+const timeout = (ms) => {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
 const root = {
 	hello: () => {
 		return 'hello world';
@@ -37,20 +41,19 @@ const root = {
 	},
 	slowEmployees: async () => {
 		const employees = [];
-		setTimeout(async () => {
-			const rawEmployees = (
-				await axios.get(
-					'https://edwardtanguay.netlify.app/share/employees.json'
-				)
-			).data;
-			rawEmployees.forEach((rawEmployee) => {
-				const employee = {
-					firstName: rawEmployee.firstName,
-					lastName: rawEmployee.lastName,
-				};
-				employees.push(employee);
-			});
-		}, 2000);
+		const rawEmployees = (
+			await axios.get(
+				'https://edwardtanguay.netlify.app/share/employees.json'
+			)
+		).data;
+		await timeout(2000);
+		rawEmployees.forEach((rawEmployee) => {
+			const employee = {
+				firstName: rawEmployee.firstName,
+				lastName: rawEmployee.lastName,
+			};
+			employees.push(employee);
+		});
 		return employees;
 	},
 };
